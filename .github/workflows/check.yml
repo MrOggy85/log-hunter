@@ -1,0 +1,32 @@
+name: Check
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v2
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: 1.28.1
+
+      - name: Cache Dependencies
+        run: deno cache src/deps.ts
+
+      - name: Run lint
+        run: deno lint --unstable ./src
+
+      - name: Run fmt
+        run: deno fmt --check ./src
+
+      - name: Run type check
+        run: deno check ./src/main.ts
