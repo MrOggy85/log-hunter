@@ -11,7 +11,7 @@ const isTesting = Boolean(getEnv("TEST"));
 async function getBannedIps() {
   const cmd = isTesting
     ? ["cat", "./fixtures/iptables-output.txt"]
-    : ["iptables", "-v", "-n", "-L", "DOCKER-USER"];
+    : ["/usr/sbin/iptables", "-v", "-n", "-L", "DOCKER-USER"];
 
   const p = Deno.run({
     cmd,
