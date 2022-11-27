@@ -15,8 +15,6 @@ console.log("ENDLESS?", ENDLESS);
 
 async function start() {
   console.log("start...");
-  await sendSlackMessage("start Log Hunter...");
-
   await checkLogs();
   if (ENDLESS) {
     console.log(`check finished. Sleeping for ${CHECK_COOLDOWN} seconds...`);
