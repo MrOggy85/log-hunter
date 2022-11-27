@@ -22,7 +22,7 @@ async function banIp(ipAddress: string, metadata: string) {
 
   const p = Deno.run({
     cmd: [
-      "iptables",
+      "/usr/sbin/iptables",
       "-I",
       "DOCKER-USER",
       "-s",

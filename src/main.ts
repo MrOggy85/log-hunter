@@ -1,6 +1,5 @@
 import checkLogs from "./checkLogs.ts";
 import getEnv from "./getEnv.ts";
-import sendSlackMessage from "./sendSlackMessage.ts";
 import sleep from "./sleep.ts";
 
 const CHECK_COOLDOWN = Number(getEnv("CHECK_COOLDOWN"));
