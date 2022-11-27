@@ -98,6 +98,7 @@ async function checkLogs() {
 }
 
 async function checkLog(logFile: string) {
+  console.log("checkLog", logFile);
   const p = Deno.run({
     cmd: ["tail", "-n", `${tailLines}`, logFile],
     stdout: "piped",
@@ -153,7 +154,7 @@ async function checkLog(logFile: string) {
   }
 
   if (code !== 0) {
-    console.log("Error", code);
+    console.error("checkLog", logFile, "Error", code);
     Deno.exit(1);
   }
 }

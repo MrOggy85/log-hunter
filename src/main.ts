@@ -1,5 +1,6 @@
 import checkLogs from "./checkLogs.ts";
 import getEnv from "./getEnv.ts";
+import sendSlackMessage from "./sendSlackMessage.ts";
 import sleep from "./sleep.ts";
 
 const CHECK_COOLDOWN = Number(getEnv("CHECK_COOLDOWN"));
@@ -9,10 +10,22 @@ if (Number.isNaN(CHECK_COOLDOWN) || CHECK_COOLDOWN < 2) {
   Deno.exit(1);
 }
 
+const ENDLESS = Boolean(getEnv("ENDLESS"));
+console.log("ENDLESS?", ENDLESS);
+
 async function start() {
+  console.log("start...");
+  await sendSlackMessage("start Log Hunter...");
+
   await checkLogs();
-  await sleep(CHECK_COOLDOWN);
-  start();
+  if (ENDLESS) {
+    console.log(`check finished. Sleeping for ${CHECK_COOLDOWN} seconds...`);
+    await sleep(CHECK_COOLDOWN);
+    start();
+  } else {
+    console.log("check finished. Exit");
+    Deno.exit(0);
+  }
 }
 
 start();

@@ -7,7 +7,8 @@ type KEY =
   | "SLACK_CHANNEL"
   | "SLACK_USERNAME"
   | "BLOCKLIST_FILE"
-  | "WHITELIST";
+  | "WHITELIST"
+  | "ENDLESS";
 
 function getEnv(key: KEY) {
   return Deno.env.get(key) || "";
