@@ -29,6 +29,8 @@ async function getBannedIps() {
   let sourceStart = -1;
   let sourceEnd = -1;
 
+  const bannedIps: string[] = [];
+
   iptablesRawText.split("\n").forEach((x, i) => {
     if (i === 0) {
       return;
@@ -46,11 +48,10 @@ async function getBannedIps() {
     sourceEnd = x.indexOf(" ", sourceStart);
     const ipAddress = x.substring(sourceStart, sourceEnd);
 
-    console.log({
-      target,
-      ipAddress,
-    });
+    bannedIps.push(ipAddress);
   });
+
+  return bannedIps;
 }
 
 export default getBannedIps;

@@ -90,10 +90,12 @@ type IpapiResult = {
    */
   country_population: number;
   /**
+   * autonomous system number
    * e.g. "AS15169,"
    */
   asn: string;
   /**
+   * organization name
    * e.g. "Google LLC"
    */
   org: string;

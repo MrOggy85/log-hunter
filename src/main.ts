@@ -1,13 +1,18 @@
 import checkLogs from "./checkLogs.ts";
 import getEnv from "./getEnv.ts";
+import sleep from "./sleep.ts";
 
-const CHECK_INTERVAL = Number(getEnv("CHECK_INTERVAL"));
-console.log("CHECK_INTERVAL", CHECK_INTERVAL);
-if (Number.isNaN(CHECK_INTERVAL) || CHECK_INTERVAL < 1000) {
-  console.log("CHECK_INTERVAL needs to be higher than 1000", CHECK_INTERVAL);
+const CHECK_COOLDOWN = Number(getEnv("CHECK_COOLDOWN"));
+console.log("CHECK_COOLDOWN", CHECK_COOLDOWN);
+if (Number.isNaN(CHECK_COOLDOWN) || CHECK_COOLDOWN < 2) {
+  console.log("CHECK_COOLDOWN needs to be higher than 1", CHECK_COOLDOWN);
   Deno.exit(1);
 }
 
-setInterval(() => {
-  checkLogs();
-}, CHECK_INTERVAL);
+async function start() {
+  await checkLogs();
+  await sleep(CHECK_COOLDOWN);
+  start();
+}
+
+start();
