@@ -103,16 +103,11 @@ async function checkLog(logFile: string) {
     cmd: ["tail", "-n", `${tailLines}`, logFile],
     stdout: "piped",
   });
-  console.log('1', p.rid, p.pid)
-//  const { code } = await p.status();
-//  console.log('code', code)
   const rawOutput = await p.output();
 
   const rawText = new TextDecoder().decode(rawOutput);
-  console.log('rawText length', rawText.length)
 
   for (const row of rawText.split("\n")) {
-    console.log('row...')
     if (!row) {
       continue;
     }
@@ -154,11 +149,6 @@ async function checkLog(logFile: string) {
       await sleep(3);
     }
   }
-
-//  if (code !== 0) {
-//    console.error("checkLog", logFile, "Error", code);
-//    Deno.exit(1);
-//  }
 }
 
 export default checkLogs;
