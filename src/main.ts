@@ -13,14 +13,14 @@ const ENDLESS = Boolean(getEnv("ENDLESS"));
 console.log("ENDLESS?", ENDLESS);
 
 async function start() {
-  console.log("start...");
+  console.log("start...", new Date());
   await checkLogs();
   if (ENDLESS) {
     console.log(`check finished. Sleeping for ${CHECK_COOLDOWN} seconds...`);
     await sleep(CHECK_COOLDOWN);
     start();
   } else {
-    console.log("check finished. Exit");
+    console.log("check finished. Exit", new Date());
     Deno.exit(0);
   }
 }
